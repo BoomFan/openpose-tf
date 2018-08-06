@@ -43,7 +43,7 @@ Clone the repo and install 3rd-party libraries.
 
 ```bash
 $ git clone https://github.com/BoomFan/openpose-tf.git
-$ cd tf-openpose
+$ cd openpose-tf
 $ pip3 install -r requirements.txt
 ```
 
@@ -59,7 +59,7 @@ Alternatively, you can install this repo as a shared package using pip.
 
 ```bash
 $ git clone https://github.com/BoomFan/openpose-tf.git
-$ cd tf-openpose
+$ cd openpose-tf
 $ python setup.py install
 ```
 
