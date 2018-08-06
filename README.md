@@ -11,7 +11,7 @@ Original Repo(Caffe) : https://github.com/CMU-Perceptual-Computing-Lab/openpose
 |:---------|:--------------------|:----------------|
 | ![cmu-model](/etcs/openpose_macbook_cmu.gif)     | ![mb-model-macbook](/etcs/openpose_macbook_mobilenet3.gif) | ![mb-model-tx2](/etcs/openpose_tx2_mobilenet3.gif) |
 | **~0.6 FPS** | **~4.2 FPS** @ 368x368 | **~10 FPS** @ 368x368 |
-| 2.8GHz Quad-core i7 | 2.8GHz Quad-core i7 | Jetson TX2 Embedded Board | 
+| 2.8GHz Quad-core i7 | 2.8GHz Quad-core i7 | Jetson TX2 Embedded Board |
 
 Implemented features are listed here : [features](./etcs/feature.md)
 
@@ -60,7 +60,7 @@ Alternatively, you can install this repo as a shared package using pip.
 ```bash
 $ git clone https://github.com/BoomFan/openpose-tf.git
 $ cd openpose-tf
-$ python setup.py install
+$ sudo python3 setup.py install
 ```
 
 #### Test installed package
@@ -72,17 +72,17 @@ python -c 'import tf_pose; tf_pose.infer(image="./images/p1.jpg")'
 
 ## Models
 
-I have tried multiple variations of models to find optmized network architecture. Some of them are below and checkpoint files are provided for research purpose. 
+I have tried multiple variations of models to find optmized network architecture. Some of them are below and checkpoint files are provided for research purpose.
 
-- cmu 
+- cmu
   - the model based VGG pretrained network which described in the original paper.
   - I converted Weights in Caffe format to use in tensorflow.
   - [pretrained weight download](https://www.dropbox.com/s/xh5s7sb7remu8tx/openpose_coco.npy?dl=0)
-  
+
 - dsconv
   - Same architecture as the cmu version except for the **depthwise separable convolution** of mobilenet.
   - I trained it using 'transfer learning', but it provides not-enough speed and accuracy.
-  
+
 - mobilenet
   - Based on the mobilenet paper, 12 convolutional layers are used as feature-extraction layers.
   - To improve on small person, **minor modification** on the architecture have been made.
