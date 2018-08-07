@@ -1,6 +1,14 @@
 import argparse
 import logging
+
+# Add this block for ROS python conflict
 import sys
+try:
+    sys.path.remove('/opt/ros/kinetic/lib/python2.7/dist-packages')
+    sys.path.remove('/home/boom/segway_kinetic_ws/devel/lib/python2.7/dist-packages')
+except ValueError:
+    pass
+
 import time
 
 from tf_pose import common
