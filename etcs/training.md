@@ -1,6 +1,6 @@
 ## Training
 
-### Coco Dataset 
+### Coco Dataset
 
 You should download COCO Dataset from http://cocodataset.org/#download
 
@@ -25,9 +25,14 @@ This process can be a bottleneck for training, so if you have enough computing r
 ### Run
 
 ```
-$ python3 train.py --model=cmu --datapath={datapath} --batchsize=64 --lr=0.001 --modelpath={path-to-save}
+$ python3 tf_pose/train.py --model=cmu --datapath={datapath} --batchsize=64 --lr=0.001 --modelpath={path-to-save}
 
 2017-09-27 15:58:50,307 INFO Restore pretrained weights...
+```
+
+For example:
+```
+python3 tf_pose/train.py --model=cmu --datapath=/mnt/fcav/datasets/COCO/annotations --imgpath=/mnt/fcav/datasets/COCO/ --batchsize=64 --lr=0.001 --modelpath=/home/fanbu/openpose-tf/openpose-tf/models/graph/my_cmu
 ```
 
 If you want to reproduce the original paper's result, the following setting is recommended.
@@ -42,14 +47,14 @@ If you want to reproduce the original paper's result, the following setting is r
 | ![train_loss_cmu](/etcs/loss_ll_heat.png) | ![train_loss_cmu](/etcs/loss_ll_paf.png) |  
 
 As you can see from the table above, training loss was converged at the almost same trends with the original paper.
- 
+
 The mobilenet versions has slightly poor loss value compared to the original one. Training losses are 3 to 8% larger, though validation losses are 5 to 14% larger.
 
 
 ### Run for Faster Training
 
 If you have enough computing resources in multiple nodes, you can launch multiple workers on nodes to help data preparation.
- 
+
 ```
 worker-node1$ python3 pose_dataworker.py --master=tcp://host:port
 worker-node2$ python3 pose_dataworker.py --master=tcp://host:port
@@ -89,7 +94,7 @@ $ python3 -m tensorflow.python.tools.freeze_graph \
   --output_node_names="Openpose/concat_stage7"
 ```
 
-And the optimization can be performed on the frozen model via graph transform provided by tensorflow. 
+And the optimization can be performed on the frozen model via graph transform provided by tensorflow.
 
 ```bash
 $ bazel build tensorflow/tools/graph_transforms:transform_graph
@@ -107,7 +112,7 @@ $ bazel-bin/tensorflow/tools/graph_transforms/transform_graph \
 ```
 
 Also, It is promising to quantize neural network in 8 bit to get futher improvement for speed. In my case, this will make inference less accurate and take more time on Intel's CPUs.
- 
+
 ```
 $ bazel-bin/tensorflow/tools/graph_transforms/transform_graph \
   --in_graph=/Users/ildoonet/repos/tf-openpose/tmp/cmu_640x480/graph_opt.pb \
