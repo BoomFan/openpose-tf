@@ -32,7 +32,7 @@ $ python3 tf_pose/train.py --model=cmu --datapath={datapath} --batchsize=64 --lr
 
 For example:
 ```
-python3 tf_pose/train.py --model=cmu --datapath=/mnt/fcav/datasets/COCO/annotations --imgpath=/mnt/fcav/datasets/COCO/ --batchsize=64 --lr=0.001 --modelpath=/home/fanbu/openpose-tf/openpose-tf/models/graph/my_cmu
+python3 tf_pose/train.py --model=cmu --datapath=/mnt/fcav/datasets/COCO/annotations --imgpath=/mnt/fcav/datasets/COCO/ --batchsize=10 --lr=0.0001
 ```
 
 If you want to reproduce the original paper's result, the following setting is recommended.
