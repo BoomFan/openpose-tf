@@ -39,12 +39,20 @@ You need dependencies below.
 
 ### Install
 
-Clone the repo and install 3rd-party libraries.
-
+(Without virtualenv)Clone the repo and install 3rd-party libraries.
 ```bash
 $ git clone https://github.com/BoomFan/openpose-tf.git
 $ cd openpose-tf
 $ pip3 install -r requirements.txt
+```
+
+(With virtualenv)If you are using virtualenv:
+```bash
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ /usr/bin/python3 get-pip.py --user --upgrade
+$ git clone https://github.com/BoomFan/openpose-tf.git
+$ cd openpose-tf
+$ ~/.local/bin/pip3 install --user --upgrade -r requirements.txt
 ```
 
 Build c++ library for post processing. See : https://github.com/BoomFan/openpose-tf/tree/master/tf_pose/pafprocess
