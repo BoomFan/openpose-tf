@@ -178,14 +178,17 @@ if __name__ == '__main__':
             # loader.restore(sess, tf.train.latest_checkpoint(args.checkpoint))
             saver.restore(sess, tf.train.latest_checkpoint(args.checkpoint))
             logger.info('Restore from checkpoint...Done')
-        elif pretrain_path:
-            logger.info('Restore pretrained weights...')
-            if '.ckpt' in pretrain_path:
-                loader = tf.train.Saver(net.restorable_variables())
-                loader.restore(sess, pretrain_path)
-            elif '.npy' in pretrain_path:
-                net.load(pretrain_path, sess, False)
-            logger.info('Restore pretrained weights...Done')
+        # elif pretrain_path:
+        #     logger.info('Restore pretrained weights...')
+        #     if '.ckpt' in pretrain_path:
+        #         loader = tf.train.Saver(net.restorable_variables())
+        #         loader.restore(sess, pretrain_path)
+        #     elif '.npy' in pretrain_path:
+        #         net.load(pretrain_path, sess, False)
+        #     logger.info('Restore pretrained weights...Done')
+        init = tf.global_variables_initializer()
+        sess.run(init)
+
 
         logger.info('prepare file writer')
         file_writer = tf.summary.FileWriter(args.logpath + training_name, sess.graph)
@@ -199,6 +202,7 @@ if __name__ == '__main__':
         time_started = time.time()
         last_gs_num = last_gs_num2 = 0
         initial_gs_num = sess.run(global_step)
+
 
         while True:
             _, gs_num = sess.run([train_op, global_step])
@@ -222,6 +226,7 @@ if __name__ == '__main__':
                 if not os.path.exists(os.path.join(args.modelpath, training_name, 'model')):
                     os.makedirs(os.path.join(args.modelpath, training_name, 'model'))
 
+                logger.info('Save model in ', os.path.join(args.modelpath, training_name, 'model'))
                 saver.save(sess, os.path.join(args.modelpath, training_name, 'model'), global_step=global_step)
 
                 average_loss = average_loss_ll = average_loss_ll_paf = average_loss_ll_heat = 0
@@ -235,6 +240,7 @@ if __name__ == '__main__':
                     df_valid = None
 
                 # log of test accuracy
+                logger.info('Test accuracy')
                 for images_test, heatmaps, vectmaps in validation_cache:
                     lss, lss_ll, lss_ll_paf, lss_ll_heat, vectmap_sample, heatmap_sample = sess.run(
                         [total_loss, total_loss_ll, total_loss_ll_paf, total_loss_ll_heat, output_vectmap, output_heatmap],
