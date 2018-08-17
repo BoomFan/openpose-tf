@@ -218,7 +218,10 @@ if __name__ == '__main__':
 
             if gs_num - last_gs_num2 >= 50:
                 # save weights
-                print('train.py 221 :: training_name = ', training_name)
+                # Create folder if folder does not exist.
+                if not os.path.exists(os.path.join(args.modelpath, training_name, 'model')):
+                    os.makedirs(os.path.join(args.modelpath, training_name, 'model'))
+
                 saver.save(sess, os.path.join(args.modelpath, training_name, 'model'), global_step=global_step)
 
                 average_loss = average_loss_ll = average_loss_ll_paf = average_loss_ll_heat = 0
