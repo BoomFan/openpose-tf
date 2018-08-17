@@ -76,6 +76,10 @@ $ sudo python3 setup.py install
 ```bash
 python -c 'import tf_pose; tf_pose.infer(image="./images/p1.jpg")'
 ```
+or
+```bash
+python３ -c 'import tf_pose; tf_pose.infer(image="./images/p1.jpg")'
+```
 
 
 ## Models
@@ -114,7 +118,10 @@ CMU's model graphs are too large for git, so I uploaded them on an external clou
 $ cd models/graph/cmu
 $ bash download.sh
 ```
-
+```
+openpose-tf/models/numpy
+sh download.sh
+```
 ### Inference Time
 
 | Dataset | Model              | Inference Time<br/>Macbook Pro i5 3.1G | Inference Time<br/>Jetson TX2  |

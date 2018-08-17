@@ -10,8 +10,8 @@ Also, you need to install cocoapi for easy parsing : https://github.com/cocodata
 ```
 $ git clone https://github.com/cocodataset/cocoapi
 $ cd cocoapi/PythonAPI
-$ python3 setup.py build_ext --inplace
-$ python3 setup.py build_ext install
+$ python setup.py build_ext --inplace
+$ python setup.py build_ext install
 ```
 
 ### Augmentation
@@ -34,7 +34,11 @@ For example:
 ```
 python3 tf_pose/train.py --model=cmu --datapath=/mnt/fcav/datasets/COCO/annotations --imgpath=/mnt/fcav/datasets/COCO/ --batchsize=10 --lr=0.0001
 ```
-
+If you want to see tensorboard:
+```
+cd openpose-tf/data/private
+tensorboard --logdir $(THE NAME OF YOUR MODEL)
+```
 If you want to reproduce the original paper's result, the following setting is recommended.
 
 - model : vgg

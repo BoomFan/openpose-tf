@@ -35,13 +35,13 @@ if __name__ == '__main__':
     parser.add_argument('--gpus', type=int, default=1)
     parser.add_argument('--max-epoch', type=int, default=30)
     parser.add_argument('--lr', type=str, default='0.01')
-    parser.add_argument('--modelpath', type=str, default='data/private/tf-openpose-models-2018-08-08/')
-    parser.add_argument('--logpath', type=str, default='data/private/tf-openpose-log-2018-08-08/')
+    parser.add_argument('--modelpath', type=str, default='data/private/tf-openpose-models-2018-08-17/')
+    parser.add_argument('--logpath', type=str, default='data/private/tf-openpose-log-2018-08-17/')
     parser.add_argument('--checkpoint', type=str, default='')
     parser.add_argument('--tag', type=str, default='')
     parser.add_argument('--remote-data', type=str, default='', help='eg. tcp://0.0.0.0:1027')
 
-    parser.add_argument('--input-width', type=int, default=368)
+    parser.add_argument('--input-width', type=int, default=656)
     parser.add_argument('--input-height', type=int, default=368)
     args = parser.parse_args()
 
@@ -218,6 +218,7 @@ if __name__ == '__main__':
 
             if gs_num - last_gs_num2 >= 1000:
                 # save weights
+                print('train.py 221 :: training_name = ', training_name)
                 saver.save(sess, os.path.join(args.modelpath, training_name, 'model'), global_step=global_step)
 
                 average_loss = average_loss_ll = average_loss_ll_paf = average_loss_ll_heat = 0
