@@ -210,7 +210,7 @@ if __name__ == '__main__':
             if gs_num > step_per_epoch * args.max_epoch:
                 break
 
-            if gs_num - last_gs_num >= 10:
+            if gs_num - last_gs_num >= 100:
                 train_loss, train_loss_ll, train_loss_ll_paf, train_loss_ll_heat, lr_val, summary, queue_size = sess.run([total_loss, total_loss_ll, total_loss_ll_paf, total_loss_ll_heat, learning_rate, merged_summary_op, enqueuer.size()])
 
                 # log of training loss / accuracy
@@ -220,7 +220,7 @@ if __name__ == '__main__':
 
                 file_writer.add_summary(summary, gs_num)
 
-            if gs_num - last_gs_num2 >= 50:
+            if gs_num - last_gs_num2 >= 500:
                 # save weights
                 # Create folder if folder does not exist.
                 if not os.path.exists(os.path.join(args.modelpath, training_name, 'model')):
