@@ -228,7 +228,7 @@ if __name__ == '__main__':
 
                 logger.info('Save model in %s', os.path.join(args.modelpath, training_name, 'model'))
                 saver.save(sess, os.path.join(args.modelpath, training_name, 'model'), global_step=global_step)
-
+                logger.info('Model saved')
                 average_loss = average_loss_ll = average_loss_ll_paf = average_loss_ll_heat = 0
                 total_cnt = 0
 
@@ -256,6 +256,9 @@ if __name__ == '__main__':
                 last_gs_num2 = gs_num
 
                 sample_image = [enqueuer.last_dp[0][i] for i in range(4)]
+                print('enqueuer.last_dp[0] = ', enqueuer.last_dp[0])
+                print('len(val_image) = ',len(val_image))
+                print('len(sample_imag) = ',len(sample_imag))
                 print('*******Size = ', np.array((sample_image + val_image)*(args.batchsize // 16)))
                 outputMat = sess.run(
                     outputs,
