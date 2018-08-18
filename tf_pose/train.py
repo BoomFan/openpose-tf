@@ -210,6 +210,9 @@ if __name__ == '__main__':
             if gs_num > step_per_epoch * args.max_epoch:
                 break
 
+            if gs_num > 3:
+                break
+
             if gs_num - last_gs_num >= 1:
                 train_loss, train_loss_ll, train_loss_ll_paf, train_loss_ll_heat, lr_val, summary, queue_size = sess.run([total_loss, total_loss_ll, total_loss_ll_paf, total_loss_ll_heat, learning_rate, merged_summary_op, enqueuer.size()])
 
@@ -256,12 +259,12 @@ if __name__ == '__main__':
                 last_gs_num2 = gs_num
 
                 sample_image = [enqueuer.last_dp[0][i] for i in range(4)]
-                print('enqueuer.last_dp[0] = ', enqueuer.last_dp[0])
-                print('len(val_image) = ',len(val_image))
-                print('val_image[0] = ', val_image[0])
-                print('len(sample_image) = ',len(sample_image))
-                print('sample_image[0] = ', sample_image[0])
-                print('*******Size = ', np.array((sample_image + val_image)*(args.batchsize // 16)))
+                # print('enqueuer.last_dp[0] = ', enqueuer.last_dp[0])
+                # print('len(val_image) = ',len(val_image))
+                # print('val_image[0] = ', val_image[0])
+                # print('len(sample_image) = ',len(sample_image))
+                # print('sample_image[0] = ', sample_image[0])
+                # print('*******Size = ', np.array((sample_image + val_image)*(args.batchsize // 16)))
                 outputMat = sess.run(
                     outputs,
                     feed_dict={q_inp: np.array((sample_image + val_image)*(args.batchsize // 16))}
