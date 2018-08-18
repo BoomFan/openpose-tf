@@ -210,7 +210,7 @@ if __name__ == '__main__':
             if gs_num > step_per_epoch * args.max_epoch:
                 break
 
-            if gs_num - last_gs_num >= 100:
+            if gs_num - last_gs_num >= 1:
                 train_loss, train_loss_ll, train_loss_ll_paf, train_loss_ll_heat, lr_val, summary, queue_size = sess.run([total_loss, total_loss_ll, total_loss_ll_paf, total_loss_ll_heat, learning_rate, merged_summary_op, enqueuer.size()])
 
                 # log of training loss / accuracy
@@ -220,13 +220,13 @@ if __name__ == '__main__':
 
                 file_writer.add_summary(summary, gs_num)
 
-            if gs_num - last_gs_num2 >= 500:
+            if gs_num - last_gs_num2 >= 2:
                 # save weights
                 # Create folder if folder does not exist.
                 if not os.path.exists(os.path.join(args.modelpath, training_name, 'model')):
                     os.makedirs(os.path.join(args.modelpath, training_name, 'model'))
 
-                logger.info('Save model in ', os.path.join(args.modelpath, training_name, 'model'))
+                logger.info('Save model in %s', os.path.join(args.modelpath, training_name, 'model'))
                 saver.save(sess, os.path.join(args.modelpath, training_name, 'model'), global_step=global_step)
 
                 average_loss = average_loss_ll = average_loss_ll_paf = average_loss_ll_heat = 0
@@ -256,6 +256,7 @@ if __name__ == '__main__':
                 last_gs_num2 = gs_num
 
                 sample_image = [enqueuer.last_dp[0][i] for i in range(4)]
+                print('*******Size = ', np.array((sample_image + val_image)*(args.batchsize // 16)))
                 outputMat = sess.run(
                     outputs,
                     feed_dict={q_inp: np.array((sample_image + val_image)*(args.batchsize // 16))}
