@@ -258,7 +258,9 @@ if __name__ == '__main__':
                 sample_image = [enqueuer.last_dp[0][i] for i in range(4)]
                 print('enqueuer.last_dp[0] = ', enqueuer.last_dp[0])
                 print('len(val_image) = ',len(val_image))
-                print('len(sample_imag) = ',len(sample_imag))
+                print('val_image[0] = ', val_image[0])
+                print('len(sample_image) = ',len(sample_image))
+                print('sample_image[0] = ', sample_image[0])
                 print('*******Size = ', np.array((sample_image + val_image)*(args.batchsize // 16)))
                 outputMat = sess.run(
                     outputs,
